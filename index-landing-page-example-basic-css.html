@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Innovation Has a Story</title>
+
+    <style>
+    /* ==========================================================================
+    1. Universal Reset & Box Sizing
+    ========================================================================== */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ==========================================================================
+    2. Global Typography & Base Colors
+    ========================================================================== */
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: #1e293b;            /* Dark slate for readable text */
+        background-color: #f8fafc; /* Subtle light background */
+        padding: 1.5rem;
+    }
+
+    /* ==========================================================================
+    3. Container & Layout Width Control
+    ========================================================================== */
+    main,
+    header,
+    footer,
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    /* ==========================================================================
+    4. Heading Hierarchy & Text Spacing
+    ========================================================================== */
+    h1, h2, h3 {
+        color: #0f172a;
+        font-weight: 700;
+        line-height: 1.25;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        margin-bottom: 1.25rem;
+    }
+
+    /* ==========================================================================
+    5. Modern Layout Basics (Flexbox Navigation)
+    ========================================================================== */
+    nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        list-style: none;
+        margin: 1rem 0;
+        padding-left: 0;           /* Resets default list padding for nav */
+    }
+
+    /* ==========================================================================
+    6. General Lists & Bullet Styling
+    ========================================================================== */
+    ul, ol {
+        margin-left: 1.75rem;
+        margin-bottom: 1.25rem;
+        padding-left: 0.5rem;
+    }
+
+    li {
+        margin-bottom: 0.4rem;
+        line-height: 1.6;
+        color: #334155;
+    }
+
+    ul li::marker {
+        color: #0284c7;            /* Blue accent bullets */
+    }
+
+    ol li::marker {
+        color: #0284c7;            /* Blue accent numbers */
+        font-weight: 600;
+    }
+
+    li > ul,
+    li > ol {
+        margin-top: 0.4rem;
+        margin-bottom: 0.4rem;
+        margin-left: 1.25rem;
+    }
+
+    /* ==========================================================================
+    7. Responsive Media Rules
+    ========================================================================== */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 6px;
+    }
+
+    /* ==========================================================================
+    8. Link & Interactive States
+    ========================================================================== */
+    a {
+        color: #0284c7;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    a:hover,
+    a:focus {
+        color: #0369a1;
+        text-decoration: underline;
+    }
+
+    /* Call-to-action button styling */
+    .btn,
+    section a.button {
+        display: inline-block;
+        background-color: #0284c7;
+        color: #ffffff;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .btn:hover,
+    section a.button:hover {
+        background-color: #0369a1;
+        text-decoration: none;
+    }
+
+    /* ==========================================================================
+    9. Box Model Spacing on Components
+    ========================================================================== */
+    article,
+    figure,
+    blockquote {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    blockquote {
+        border-left: 4px solid #0284c7;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+    }
+
+    th, td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Header and Navigation -->
+    <header>
+
+        <h1>Innovation Has a Story</h1>
+
+        <nav>
+
+            <ul>
+
+                <li><a href="#story">The Story</a></li>
+                <li><a href="#journey">The Journey</a></li>
+                <li><a href="#people">The People</a></li>
+                <li><a href="#philippines">Philippine Startups</a></li>
+                <li><a href="#research">The Research</a></li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- Hero Section -->
+        <section id="home">
+
+            <h2>Every Startup Begins With a Story.</h2>
+
+            <p>
+                Behind every app, platform, or breakthrough is a story about
+                a problem, an idea, and the people trying to make something
+                new happen.
+            </p>
+
+
+            <figure>
+
+                <img
+                    src="assets/hero-image.webp"
+                    alt="A group of people involved in a startup workshop gathered around in an incubation space">
+
+                <figcaption>
+                    Innovation brings together people, ideas, technology,
+                    and opportunities.
+                </figcaption>
+
+            </figure>
+
+
+            <p>
+                <a href="#story">Explore the Story</a>
+            </p>
+
+        </section>
+
+
+        <!-- Introduction -->
+        <section id="story">
+
+            <h2>What if innovation is more than just a product?</h2>
+
+            <p>
+                When we hear the word innovation, we often think about
+                something new that we can use: an app, a device, a platform,
+                or a new technology.
+            </p>
+
+            <p>
+                But innovation does not simply appear when a product is
+                finished. It develops through conversations, decisions,
+                experiments, challenges, relationships, and the stories
+                people tell about what they are trying to create.
+            </p>
+
+            <p>
+                Innovation is not always a straight line from an idea to a
+                finished product. It changes as different people, technologies,
+                problems, and opportunities become part of the journey.
+            </p>
+
+        </section>
+
+
+        <!-- Journey Section -->
+        <section id="journey">
+
+            <h2>How an Innovation Takes Shape</h2>
+
+
+            <article>
+
+                <h3>1. Something Needs to Change</h3>
+
+                <p>
+                    The story often begins with a problem. Someone sees a
+                    challenge, experiences something that does not work, or
+                    recognizes an opportunity to do things differently.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <h3>2. An Idea Becomes a Possibility</h3>
+
+                <p>
+                    An idea begins to take shape. Someone asks:
+                </p>
+
+                <blockquote>
+
+                    <p>
+                        What if there is a better way to do this?
+                    </p>
+
+                </blockquote>
+
+                <p>
+                    The idea is shared with other people and begins to develop.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <h3>3. People and Resources Come Together</h3>
+
+                <p>
+                    Innovation is rarely created by one person alone.
+                    Different people and resources become part of the process.
+                </p>
+
+                <ul>
+
+                    <li>Founders</li>
+                    <li>Developers</li>
+                    <li>Designers</li>
+                    <li>Mentors</li>
+                    <li>Partners</li>
+                    <li>Investors</li>
+                    <li>Users</li>
+
+                </ul>
+
+            </article>
+
+
+            <article>
+
+                <h3>4. Problems Push Back</h3>
+
+                <p>
+                    Not everything goes according to plan. Startups may
+                    encounter challenges such as:
+                </p>
+
+                <ul>
+
+                    <li>Technical limitations</li>
+                    <li>Limited resources</li>
+                    <li>Infrastructure problems</li>
+                    <li>Regulations</li>
+                    <li>Competition</li>
+                    <li>Uncertainty</li>
+
+                </ul>
+
+                <p>
+                    These challenges can change the direction of an innovation.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <h3>5. The Innovation Changes</h3>
+
+                <p>
+                    Ideas are revised. Products are improved. Users provide
+                    feedback. New people become involved.
+                </p>
+
+                <p>
+                    Innovation continues to evolve.
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- Key Message -->
+        <section>
+
+            <h2>Innovation Does Not Move in a Straight Line.</h2>
+
+            <p>It is negotiated.</p>
+
+            <p>It is revised.</p>
+
+            <p>It is communicated.</p>
+
+            <p>
+                And it is constantly shaped by the people and things around it.
+            </p>
+
+        </section>
+
+
+        <!-- People and Actors -->
+        <section id="people">
+
+            <h2>Innovation Is Never a Solo Story</h2>
+
+            <p>
+                Different people and forces can influence what an innovation
+                eventually becomes.
+            </p>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Person / Actor</th>
+                        <th>Role</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>The Visionary</td>
+                        <td>
+                            Sees a problem and imagines something different.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>The Builder</td>
+                        <td>
+                            Helps turn ideas into products, services, or technology.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>The Helper</td>
+                        <td>
+                            Provides knowledge, resources, support, or opportunities.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>The User</td>
+                        <td>
+                            Influences innovation through feedback, experiences, and use.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>The Opponent</td>
+                        <td>
+                            Represents obstacles and challenges that must be addressed.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>The System</td>
+                        <td>
+                            Includes technologies, regulations, infrastructure,
+                            and other conditions that shape what is possible.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- Philippine Context -->
+        <section id="philippines">
+
+            <h2>The Philippine Startup Story</h2>
+
+
+            <figure>
+
+                <img
+                    src="assets/supporting-image-1.webp"
+                    alt="An incubation space for tech startup founders">
+
+                <figcaption>
+                    Philippine startup founders and participants during
+                    an innovation and entrepreneurship event.
+                </figcaption>
+
+            </figure>
+
+
+            <p>
+                Innovation does not happen in isolation. Philippine startups
+                are shaped by local experiences, communities, technologies,
+                infrastructure, opportunities, and challenges.
+            </p>
+
+            <p>
+                Every startup has its own story about a problem that needed
+                to be solved and the people who worked together to create
+                something new.
+            </p>
+
+
+            <article>
+
+                <h3>From Experience to Innovation</h3>
+
+                <p>
+                    Sometimes, an innovation begins with a personal experience.
+                    A problem that someone encounters in everyday life can
+                    become the starting point for an idea.
+                </p>
+
+                <p>
+                    That idea may eventually involve technology, partnerships,
+                    users, and other people who help shape what the innovation
+                    becomes.
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- Why It Matters -->
+        <section>
+
+            <h2>Why Does This Matter?</h2>
+
+            <p>
+                Innovation is often presented as something created by brilliant
+                individuals or successful companies.
+            </p>
+
+            <p>
+                But looking at the stories behind innovation helps us see that
+                it is often created through relationships and interactions.
+            </p>
+
+            <p>
+                Ideas change when people talk about them. Products change when
+                users interact with them. Organizations change when new people,
+                technologies, and challenges become part of the story.
+            </p>
+
+        </section>
+
+
+        <!-- Audience Section -->
+        <section>
+
+            <h2>You May Already Be Part of the Story</h2>
+
+            <p>
+                You do not need to be the founder of a startup to influence
+                innovation.
+            </p>
+
+            <p>You might be a:</p>
+
+            <ul>
+
+                <li>Student</li>
+                <li>Developer</li>
+                <li>Designer</li>
+                <li>User</li>
+                <li>Entrepreneur</li>
+                <li>Investor</li>
+                <li>Researcher</li>
+                <li>Policymaker</li>
+
+            </ul>
+
+            <p>
+                Your ideas, conversations, decisions, and actions can become
+                part of how innovation develops.
+            </p>
+
+        </section>
+
+
+        <!-- Call to Action -->
+        <section id="research">
+
+            <h2>What Story Are You Trying to Build?</h2>
+
+            <p>
+                Every innovation starts somewhere.
+            </p>
+
+            <p>
+                It may begin with a problem, a question, an experience,
+                or an idea that something could be different.
+            </p>
+
+            <p>
+
+                <a href="https://www.upou.edu.ph/feature/beyond-stories-how-narratives-shape-innovation-in-philippine-tech-startups/">
+                    Learn more
+                </a>
+
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            Innovation Has a Story
+        </p>
+
+        <p>
+            Let this be the first chapter in your success story. Take the next
+            step by scheduling a complimentary consultation with our team today.
+        </p>
+
+        <p>
+
+            <a href="https://startablehub.com/">
+                Startable Innovation Hub
+            </a>
+
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
