@@ -64,9 +64,7 @@ This step downloads your GitHub project to your local `C:\GIT` folder.
 
 ---
 
-## Publish main & create a dev branch
-
-In this class, we follow a branching workflow. You must publish your **main** branch first, then create a **dev** branch for your work.
+## Publish
 
 ### Publish the main branch
 
@@ -86,39 +84,26 @@ You must commit a file to "activate" the main branch on GitHub.
     git config --global user.email [Your email address]
     ```
 
-### Create and push the dev branch
+### Push a commit to the main branch
 
-Now, create a secondary branch where your actual development will happen.
+1. Open the repo folder in VS Code. Go to `File > Open Folder`, navigate to `C:\GIT`, and select your repository folder. 
 
-1. Create and switch to the dev branch:
+2. When prompted, click `Yes, I trust the authors`.
 
-    ```
-    git checkout -b dev
-    ```
+3. Make your initial changes. 
 
-2. Open the folder: Go to `File > Open Folder`, navigate to `C:\GIT`, and select your repository folder. 
+4. Go to the Source Control tab. Hover on **Changes** and click the `+` icon to stage all changes.
 
-3. When prompted, click `Yes, I trust the authors`.
+5. Type a commit message, and then click `Commit` and then `Push`.
 
-4. Push the new branch to GitHub:
+### Publish to GitHub pages
 
-    ```
-    git push -u origin dev
-    ```
+1. In github.com, open your repo and click `Settings`. 
 
-### Verify working setup
+2. From the left panel, select `Pages`. 
 
-Open the **Git Graph** view (click the Graph icon in the bottom status bar).
+3. Under `Source`, select `Deploy from a branch`.
 
-You should see both the main and dev branches.
+4. Under `Branch`, select `main`. 
 
-Ensure the dev branch label is bold (indicating it is your active branch) before you begin working on your files.
-
----
-
-### Next steps 
-
-- Create files
-- Merge changes to main
-- Integrate with Vercel
-- Publish content
+Once your repo has built and your site is live, you will its complete URL in `Settings`.
