@@ -1,676 +1,1299 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Innovation Has a Story</title>
+    <meta
+        name="description"
+        content="Innovation has a story. Explore how ideas, people, technology, challenges, and opportunities shape innovation."
+    >
+
+    <title>Innovation Is a Story</title>
 
     <style>
-        /* 1. Global Variables & Color Palette */
-        :root {
-            --primary-color: #1e3a8a;       /* Deep blue */
-            --primary-hover: #172554;
-            --accent-color: #0284c7;        /* Light blue */
-            --bg-color: #f8fafc;            /* Light slate background */
-            --card-bg: #ffffff;
-            --text-main: #1e293b;           /* Dark slate text */
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --radius: 8px;
+        /* =========================================================
+           RESET & BASE
+        ========================================================= */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
         }
 
-        /* 2. Base Page Reset & Typography */
-        * {
-            box-sizing: border-box;
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :focus-visible {
+            outline: 3px solid #f4b942;
+            outline-offset: 4px;
+        }
+
+        /* =========================================================
+           ACCESSIBILITY
+        ========================================================= */
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            z-index: 999;
+            padding: 0.75rem 1rem;
+            background: #172033;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* =========================================================
+           DESIGN TOKENS
+        ========================================================= */
+
+        :root {
+            --ink: #172033;
+            --muted: #5f6b7a;
+            --surface: #f5f7fa;
+            --surface-dark: #172033;
+            --accent: #f4b942;
+            --accent-dark: #b87500;
+            --line: #dfe4ea;
+            --white: #ffffff;
+
+            --max-width: 1180px;
+            --radius: 18px;
+            --shadow: 0 16px 40px rgba(23, 32, 51, 0.08);
+        }
+
+        .container {
+            width: min(var(--max-width), calc(100% - 2rem));
+            margin-inline: auto;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 1.05rem;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+
+        .brand span {
+            color: var(--accent-dark);
+        }
+
+        .nav-list {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+            list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
-            background-color: var(--bg-color);
-            padding-bottom: 2rem;
-        }
-
-        /* 3. Layout Container */
-        main, header, footer {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-
-        /* 4. Header & Navigation */
-        header {
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 2rem;
-        }
-
-        header h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            list-style: none;
-        }
-
-        nav a {
+        .nav-list a {
             text-decoration: none;
-            color: var(--accent-color);
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 650;
+            color: #465162;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        .nav-list a:hover {
+            color: var(--ink);
         }
 
-        /* 5. Headings & Sections */
-        section {
-            margin-bottom: 3rem;
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f7f8fa 0%,
+                    #ffffff 55%,
+                    #fff8e9 100%
+                );
+            padding: clamp(4rem, 9vw, 7rem) 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            align-items: center;
+            gap: clamp(2rem, 5vw, 5rem);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 0 1rem;
+            color: var(--accent-dark);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-top: 0;
+            color: var(--ink);
+            line-height: 1.1;
+            letter-spacing: -0.035em;
+        }
+
+        h1 {
+            max-width: 760px;
+            margin-bottom: 1.4rem;
+            font-size: clamp(3rem, 7vw, 5.7rem);
         }
 
         h2 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
+            font-size: clamp(2rem, 4vw, 3.3rem);
             margin-bottom: 1rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.3rem;
         }
 
         h3 {
-            color: var(--text-main);
-            font-size: 1.2rem;
-            margin-top: 1.25rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.7rem;
         }
 
-        p {
-            margin-bottom: 1rem;
+        .hero-copy {
+            max-width: 650px;
+            font-size: clamp(1.05rem, 2vw, 1.3rem);
+            color: var(--muted);
         }
 
-        /* 6. Cards & Articles */
-        article {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0.8rem 1.2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 750;
+            border: 2px solid transparent;
+            transition:
+                transform 160ms ease,
+                background 160ms ease,
+                color 160ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: var(--ink);
+            color: var(--white);
+        }
+
+        .button-primary:hover {
+            background: #28344a;
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--ink);
+            border-color: #aeb7c4;
+        }
+
+        .button-secondary:hover {
+            background: var(--white);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .image-label {
+            position: absolute;
+            right: -1rem;
+            bottom: -1rem;
+            max-width: 230px;
+            padding: 1rem 1.1rem;
+            background: var(--ink);
+            color: var(--white);
+            border-radius: 14px;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* =========================================================
+           INTRO / BIG IDEA
+        ========================================================= */
+
+        .section {
+            padding: clamp(4rem, 8vw, 7rem) 0;
+        }
+
+        .section-heading {
+            max-width: 720px;
+            margin-bottom: 3rem;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .statement {
+            padding: clamp(2rem, 4vw, 3.5rem);
+            background: var(--ink);
+            color: var(--white);
             border-radius: var(--radius);
-            padding: 1.25rem;
-            margin-bottom: 1rem;
         }
 
-        /* 7. Blockquotes & Lists */
+        .statement h2 {
+            color: var(--white);
+        }
+
+        .statement p {
+            margin: 0;
+            color: #dce2eb;
+            font-size: 1.1rem;
+        }
+
+        .intro-text {
+            padding: 1rem 0;
+        }
+
+        .intro-text p {
+            margin-top: 0;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        /* =========================================================
+           JOURNEY
+        ========================================================= */
+
+        .journey {
+            background: var(--surface);
+        }
+
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+        }
+
+        .journey-card {
+            position: relative;
+            min-height: 260px;
+            padding: 1.5rem;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+        }
+
+        .journey-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            margin-bottom: 1.4rem;
+            border-radius: 50%;
+            background: #fff2cd;
+            color: #8a5a00;
+            font-weight: 850;
+        }
+
+        .journey-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* =========================================================
+           BIG QUOTE / STATEMENT
+        ========================================================= */
+
+        .quote-section {
+            padding: clamp(4rem, 8vw, 6rem) 0;
+            text-align: center;
+        }
+
         blockquote {
-            background-color: #f1f5f9;
-            border-left: 4px solid var(--accent-color);
-            margin: 1rem 0;
-            padding: 0.75rem 1rem;
-            font-style: italic;
+            max-width: 850px;
+            margin: 0 auto;
         }
 
         blockquote p {
-            margin-bottom: 0;
+            margin: 0;
+            color: var(--ink);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.04em;
         }
 
-        ul {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
+        blockquote p span {
+            color: var(--accent-dark);
         }
 
-        li {
-            margin-bottom: 0.25rem;
+        /* =========================================================
+           PEOPLE
+        ========================================================= */
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
         }
 
-        /* 8. Media & Figures */
-        img {
-            max-width: 100%;
-            height: auto;
-            max-height: 350px;
+        .person-card {
+            padding: 1.5rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--white);
+        }
+
+        .person-card:nth-child(4),
+        .person-card:nth-child(5),
+        .person-card:nth-child(6) {
+            background: var(--surface);
+        }
+
+        .person-role {
             display: block;
-            margin: 0 auto;
-            border-radius: var(--radius);
-            object-fit: cover;
+            margin-bottom: 0.8rem;
+            color: var(--accent-dark);
+            font-size: 0.75rem;
+            font-weight: 850;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        figure {
-            margin: 1.5rem 0;
-            text-align: center;
+        .person-card p {
+            margin: 0;
+            color: var(--muted);
         }
 
-        figcaption {
-            margin-top: 0.5rem;
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            font-style: italic;
+        /* =========================================================
+           PHILIPPINE STARTUPS
+        ========================================================= */
+
+        .philippines {
+            background: #fff8e9;
         }
 
-        /* 9. Data Tables */
-        table {
+        .philippines-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: clamp(2rem, 5vw, 5rem);
+            align-items: center;
+        }
+
+        .philippines-image img {
             width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background-color: var(--card-bg);
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
             border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
         }
 
-        th, td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
+        .philippines-copy p {
+            color: var(--muted);
+            font-size: 1.05rem;
         }
 
-        th {
-            background-color: #f1f5f9;
-            color: var(--primary-color);
-            font-weight: 600;
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin: 1.5rem 0 0;
+            padding: 0;
+            list-style: none;
         }
 
-        tr:last-child td {
-            border-bottom: none;
+        .pill-list li {
+            padding: 0.45rem 0.75rem;
+            background: var(--white);
+            border: 1px solid #e5d8b8;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
         }
 
-        /* 10. Links & Call-to-Action Buttons */
-        section#home a,
-        section#research a {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #ffffff;
-            padding: 0.6rem 1.2rem;
+        /* =========================================================
+           WHY IT MATTERS
+        ========================================================= */
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .why-card {
+            padding: 1.75rem;
+            background: var(--surface);
             border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.2s ease;
         }
 
-        section#home a:hover,
-        section#research a:hover {
-            background-color: var(--primary-hover);
+        .why-card p {
+            margin-bottom: 0;
+            color: var(--muted);
         }
 
-        /* 11. Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+        /* =========================================================
+           AUDIENCE / CTA
+        ========================================================= */
+
+        .audience {
+            background: var(--surface);
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .audience-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.7rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .audience-list li {
+            padding: 0.9rem 1rem;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .cta {
+            padding: clamp(2rem, 5vw, 4rem);
+            background: var(--ink);
+            color: var(--white);
+            border-radius: 24px;
             text-align: center;
+        }
+
+        .cta h2 {
+            color: var(--white);
+        }
+
+        .cta p {
+            max-width: 620px;
+            margin: 0 auto 1.5rem;
+            color: #dce2eb;
+        }
+
+        .cta .button-primary {
+            background: var(--accent);
+            color: #241b08;
+        }
+
+        .cta .button-primary:hover {
+            background: #ffd16c;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding: 2rem 0;
+            background: #0e1522;
+            color: #aeb7c4;
+        }
+
+        .footer-grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
         footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
+            color: #ffffff;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+            .journey-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero-grid,
+            .philippines-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .nav {
+                min-height: auto;
+                padding: 1rem 0;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .nav-list {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 0.25rem;
+            }
+
+            .hero-grid,
+            .intro-grid,
+            .philippines-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 3.5rem;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .journey-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .people-grid,
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .image-label {
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                width: min(var(--max-width), calc(100% - 1.25rem));
+            }
+
+            h1 {
+                font-size: clamp(2.6rem, 14vw, 4rem);
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .journey-grid,
+            .people-grid,
+            .why-grid,
+            .audience-list {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-card {
+                min-height: auto;
+            }
+
+            .image-label {
+                position: static;
+                margin-top: 0.75rem;
+                max-width: none;
+            }
+
+            .footer-grid {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
         }
     </style>
-
 </head>
-
 
 <body>
 
-    <!-- Header and Navigation -->
-    <header>
+    <a class="skip-link" href="#main-content">
+        Skip to main content
+    </a>
 
-        <h1>Innovation Has a Story</h1>
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
 
-        <nav>
+    <header class="site-header">
+        <div class="container nav">
 
-            <ul>
+            <a class="brand" href="#">
+                Innovation <span>is a Story</span>
+            </a>
 
-                <li><a href="#story">The Story</a></li>
-                <li><a href="#journey">The Journey</a></li>
-                <li><a href="#people">The People</a></li>
-                <li><a href="#philippines">Philippine Startups</a></li>
-                <li><a href="#research">The Research</a></li>
+            <nav aria-label="Primary navigation">
+                <ul class="nav-list">
+                    <li><a href="#story">The Story</a></li>
+                    <li><a href="#journey">The Journey</a></li>
+                    <li><a href="#people">The People</a></li>
+                    <li><a href="#philippines">Philippine Startups</a></li>
+                    <li><a href="#research">Why It Matters</a></li>
+                </ul>
+            </nav>
 
-            </ul>
-
-        </nav>
-
+        </div>
     </header>
 
 
-    <main>
+    <main id="main-content">
 
-        <!-- Hero Section -->
-        <section id="home">
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
 
-            <h2>Every Startup Begins With a Story.</h2>
+        <section class="hero" aria-labelledby="hero-title">
 
-            <p>
-                Behind every app, platform, or breakthrough is a story about
-                a problem, an idea, and the people trying to make something
-                new happen.
-            </p>
+            <div class="container hero-grid">
 
+                <div>
+                    <p class="eyebrow">Innovation • People • Stories</p>
 
-            <figure>
+                    <h1 id="hero-title">
+                        Every startup begins with a story.
+                    </h1>
 
-                <img
-                    src="assets/hero-image.webp"
-                    alt="A group of people involved in a startup workshop gathered around in an incubation space">
-
-                <figcaption>
-                    Innovation brings together people, ideas, technology,
-                    and opportunities.
-                </figcaption>
-
-            </figure>
-
-
-            <p>
-                <a href="#story">Explore the Story</a>
-            </p>
-
-        </section>
-
-
-        <!-- Introduction -->
-        <section id="story">
-
-            <h2>What if innovation is more than just a product?</h2>
-
-            <p>
-                When we hear the word innovation, we often think about
-                something new that we can use: an app, a device, a platform,
-                or a new technology.
-            </p>
-
-            <p>
-                But innovation does not simply appear when a product is
-                finished. It develops through conversations, decisions,
-                experiments, challenges, relationships, and the stories
-                people tell about what they are trying to create.
-            </p>
-
-            <p>
-                Innovation is not always a straight line from an idea to a
-                finished product. It changes as different people, technologies,
-                problems, and opportunities become part of the journey.
-            </p>
-
-        </section>
-
-
-        <!-- Journey Section -->
-        <section id="journey">
-
-            <h2>How an Innovation Takes Shape</h2>
-
-
-            <article>
-
-                <h3>1. Something Needs to Change</h3>
-
-                <p>
-                    The story often begins with a problem. Someone sees a
-                    challenge, experiences something that does not work, or
-                    recognizes an opportunity to do things differently.
-                </p>
-
-            </article>
-
-
-            <article>
-
-                <h3>2. An Idea Becomes a Possibility</h3>
-
-                <p>
-                    An idea begins to take shape. Someone asks:
-                </p>
-
-                <blockquote>
-
-                    <p>
-                        What if there is a better way to do this?
+                    <p class="hero-copy">
+                        Behind every app, platform, or breakthrough is a
+                        story about a problem, an idea, and the people
+                        trying to make something new happen.
                     </p>
 
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#story">
+                            Explore the story
+                        </a>
+
+                        <a class="button button-secondary" href="#journey">
+                            See how innovation evolves
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img
+                        src="assets/hero-image.webp"
+                        alt="People gathered in a startup innovation workshop"
+                        width="1000"
+                        height="750"
+                    >
+
+                    <div class="image-label">
+                        Innovation brings together people, ideas,
+                        technology, and opportunities.
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             BIG IDEA
+        ====================================================== -->
+
+        <section class="section" id="story" aria-labelledby="story-title">
+
+            <div class="container">
+
+                <div class="section-heading">
+                    <p class="eyebrow">The big idea</p>
+
+                    <h2 id="story-title">
+                        Innovation is more than the finished product.
+                    </h2>
+                </div>
+
+                <div class="intro-grid">
+
+                    <div class="statement">
+                        <h2>
+                            What happens before the launch?
+                        </h2>
+
+                        <p>
+                            Innovation develops through conversations,
+                            decisions, experiments, challenges,
+                            relationships, and opportunities.
+                        </p>
+                    </div>
+
+                    <div class="intro-text">
+                        <p>
+                            We often think of innovation as an app,
+                            device, platform, or new technology.
+                            But products do not simply appear.
+                        </p>
+
+                        <p>
+                            An idea changes as people test it,
+                            question it, build it, use it, and respond
+                            to the problems they encounter along the way.
+                        </p>
+
+                        <p>
+                            In other words, innovation has a story.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             JOURNEY
+        ====================================================== -->
+
+        <section class="section journey" id="journey"
+                 aria-labelledby="journey-title">
+
+            <div class="container">
+
+                <div class="section-heading">
+                    <p class="eyebrow">The journey</p>
+
+                    <h2 id="journey-title">
+                        How an innovation takes shape
+                    </h2>
+
+                    <p>
+                        Innovation rarely follows a straight line.
+                        It develops through action, feedback, and change.
+                    </p>
+                </div>
+
+                <div class="journey-grid">
+
+                    <article class="journey-card">
+                        <span class="journey-number">01</span>
+
+                        <h3>Something needs to change</h3>
+
+                        <p>
+                            Someone encounters a problem, challenge,
+                            or opportunity.
+                        </p>
+                    </article>
+
+                    <article class="journey-card">
+                        <span class="journey-number">02</span>
+
+                        <h3>An idea becomes possible</h3>
+
+                        <p>
+                            Someone asks, “What if there is a better way?”
+                        </p>
+                    </article>
+
+                    <article class="journey-card">
+                        <span class="journey-number">03</span>
+
+                        <h3>People come together</h3>
+
+                        <p>
+                            Founders, builders, mentors, partners,
+                            investors, and users become involved.
+                        </p>
+                    </article>
+
+                    <article class="journey-card">
+                        <span class="journey-number">04</span>
+
+                        <h3>Problems push back</h3>
+
+                        <p>
+                            Resources, technology, regulations,
+                            competition, and uncertainty create
+                            new challenges.
+                        </p>
+                    </article>
+
+                    <article class="journey-card">
+                        <span class="journey-number">05</span>
+
+                        <h3>The innovation changes</h3>
+
+                        <p>
+                            Ideas are revised, products improve,
+                            and new people become part of the story.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             QUOTE
+        ====================================================== -->
+
+        <section class="quote-section" aria-label="Key idea">
+
+            <div class="container">
+
+                <blockquote>
+                    <p>
+                        Innovation does not move in a straight line.
+                        <span>It evolves.</span>
+                    </p>
                 </blockquote>
 
-                <p>
-                    The idea is shared with other people and begins to develop.
-                </p>
-
-            </article>
-
-
-            <article>
-
-                <h3>3. People and Resources Come Together</h3>
-
-                <p>
-                    Innovation is rarely created by one person alone.
-                    Different people and resources become part of the process.
-                </p>
-
-                <ul>
-
-                    <li>Founders</li>
-                    <li>Developers</li>
-                    <li>Designers</li>
-                    <li>Mentors</li>
-                    <li>Partners</li>
-                    <li>Investors</li>
-                    <li>Users</li>
-
-                </ul>
-
-            </article>
-
-
-            <article>
-
-                <h3>4. Problems Push Back</h3>
-
-                <p>
-                    Not everything goes according to plan. Startups may
-                    encounter challenges such as:
-                </p>
-
-                <ul>
-
-                    <li>Technical limitations</li>
-                    <li>Limited resources</li>
-                    <li>Infrastructure problems</li>
-                    <li>Regulations</li>
-                    <li>Competition</li>
-                    <li>Uncertainty</li>
-
-                </ul>
-
-                <p>
-                    These challenges can change the direction of an innovation.
-                </p>
-
-            </article>
-
-
-            <article>
-
-                <h3>5. The Innovation Changes</h3>
-
-                <p>
-                    Ideas are revised. Products are improved. Users provide
-                    feedback. New people become involved.
-                </p>
-
-                <p>
-                    Innovation continues to evolve.
-                </p>
-
-            </article>
+            </div>
 
         </section>
 
 
-        <!-- Key Message -->
-        <section>
+        <!-- =====================================================
+             PEOPLE
+        ====================================================== -->
 
-            <h2>Innovation Does Not Move in a Straight Line.</h2>
+        <section class="section" id="people"
+                 aria-labelledby="people-title">
 
-            <p>It is negotiated.</p>
+            <div class="container">
 
-            <p>It is revised.</p>
+                <div class="section-heading">
+                    <p class="eyebrow">The people</p>
 
-            <p>It is communicated.</p>
+                    <h2 id="people-title">
+                        Innovation is never a solo story.
+                    </h2>
 
-            <p>
-                And it is constantly shaped by the people and things around it.
-            </p>
+                    <p>
+                        Different people—and the systems around them—
+                        can influence what an innovation eventually becomes.
+                    </p>
+                </div>
 
-        </section>
+                <div class="people-grid">
 
+                    <article class="person-card">
+                        <span class="person-role">The visionary</span>
+                        <h3>Sees possibility</h3>
+                        <p>
+                            Spots a problem and imagines something different.
+                        </p>
+                    </article>
 
-        <!-- People and Actors -->
-        <section id="people">
+                    <article class="person-card">
+                        <span class="person-role">The builder</span>
+                        <h3>Turns ideas into reality</h3>
+                        <p>
+                            Helps transform ideas into products,
+                            services, or technology.
+                        </p>
+                    </article>
 
-            <h2>Innovation Is Never a Solo Story</h2>
+                    <article class="person-card">
+                        <span class="person-role">The helper</span>
+                        <h3>Creates opportunity</h3>
+                        <p>
+                            Provides knowledge, resources, support,
+                            or connections.
+                        </p>
+                    </article>
 
-            <p>
-                Different people and forces can influence what an innovation
-                eventually becomes.
-            </p>
+                    <article class="person-card">
+                        <span class="person-role">The user</span>
+                        <h3>Shapes the experience</h3>
+                        <p>
+                            Influences innovation through feedback,
+                            experience, and use.
+                        </p>
+                    </article>
 
+                    <article class="person-card">
+                        <span class="person-role">The opponent</span>
+                        <h3>Creates friction</h3>
+                        <p>
+                            Represents obstacles and challenges
+                            that must be addressed.
+                        </p>
+                    </article>
 
-            <table>
+                    <article class="person-card">
+                        <span class="person-role">The system</span>
+                        <h3>Sets the conditions</h3>
+                        <p>
+                            Includes technology, infrastructure,
+                            regulations, and other forces.
+                        </p>
+                    </article>
 
-                <thead>
+                </div>
 
-                    <tr>
-                        <th>Person / Actor</th>
-                        <th>Role</th>
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    <tr>
-                        <td>The Visionary</td>
-                        <td>
-                            Sees a problem and imagines something different.
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>The Builder</td>
-                        <td>
-                            Helps turn ideas into products, services, or technology.
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>The Helper</td>
-                        <td>
-                            Provides knowledge, resources, support, or opportunities.
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>The User</td>
-                        <td>
-                            Influences innovation through feedback, experiences, and use.
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>The Opponent</td>
-                        <td>
-                            Represents obstacles and challenges that must be addressed.
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>The System</td>
-                        <td>
-                            Includes technologies, regulations, infrastructure,
-                            and other conditions that shape what is possible.
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
+            </div>
 
         </section>
 
 
-        <!-- Philippine Context -->
-        <section id="philippines">
+        <!-- =====================================================
+             PHILIPPINE CONTEXT
+        ====================================================== -->
 
-            <h2>The Philippine Startup Story</h2>
+        <section class="section philippines"
+                 id="philippines"
+                 aria-labelledby="philippines-title">
 
+            <div class="container philippines-grid">
 
-            <figure>
+                <div class="philippines-image">
 
-                <img
-                    src="assets/supporting-image-1.webp"
-                    alt="An incubation space for tech startup founders">
+                    <img
+                        src="assets/supporting-image-1.webp"
+                        alt="A collaborative workspace used for startup and innovation activities"
+                        width="1000"
+                        height="750"
+                        loading="lazy"
+                    >
 
-                <figcaption>
-                    Philippine startup founders and participants during
-                    an innovation and entrepreneurship event.
-                </figcaption>
+                </div>
 
-            </figure>
+                <div class="philippines-copy">
 
+                    <p class="eyebrow">The Philippine startup story</p>
 
-            <p>
-                Innovation does not happen in isolation. Philippine startups
-                are shaped by local experiences, communities, technologies,
-                infrastructure, opportunities, and challenges.
-            </p>
+                    <h2 id="philippines-title">
+                        Innovation is shaped by where it happens.
+                    </h2>
 
-            <p>
-                Every startup has its own story about a problem that needed
-                to be solved and the people who worked together to create
-                something new.
-            </p>
+                    <p>
+                        Philippine startups are shaped by local
+                        experiences, communities, technologies,
+                        infrastructure, opportunities, and challenges.
+                    </p>
 
+                    <p>
+                        Sometimes an innovation begins with something
+                        surprisingly ordinary: a problem someone
+                        experiences in everyday life.
+                    </p>
 
-            <article>
+                    <p>
+                        That experience can become an idea—and that idea
+                        can grow through technology, partnerships,
+                        users, and the people who help bring it to life.
+                    </p>
 
-                <h3>From Experience to Innovation</h3>
+                    <ul class="pill-list"
+                        aria-label="Factors that influence innovation">
 
-                <p>
-                    Sometimes, an innovation begins with a personal experience.
-                    A problem that someone encounters in everyday life can
-                    become the starting point for an idea.
-                </p>
+                        <li>Local experience</li>
+                        <li>Community</li>
+                        <li>Technology</li>
+                        <li>Infrastructure</li>
+                        <li>Partnerships</li>
+                        <li>Users</li>
 
-                <p>
-                    That idea may eventually involve technology, partnerships,
-                    users, and other people who help shape what the innovation
-                    becomes.
-                </p>
+                    </ul>
 
-            </article>
+                </div>
 
-        </section>
-
-
-        <!-- Why It Matters -->
-        <section>
-
-            <h2>Why Does This Matter?</h2>
-
-            <p>
-                Innovation is often presented as something created by brilliant
-                individuals or successful companies.
-            </p>
-
-            <p>
-                But looking at the stories behind innovation helps us see that
-                it is often created through relationships and interactions.
-            </p>
-
-            <p>
-                Ideas change when people talk about them. Products change when
-                users interact with them. Organizations change when new people,
-                technologies, and challenges become part of the story.
-            </p>
+            </div>
 
         </section>
 
 
-        <!-- Audience Section -->
-        <section>
+        <!-- =====================================================
+             WHY IT MATTERS
+        ====================================================== -->
 
-            <h2>You May Already Be Part of the Story</h2>
+        <section class="section"
+                 id="research"
+                 aria-labelledby="research-title">
 
-            <p>
-                You do not need to be the founder of a startup to influence
-                innovation.
-            </p>
+            <div class="container">
 
-            <p>You might be a:</p>
+                <div class="section-heading">
 
-            <ul>
+                    <p class="eyebrow">Why it matters</p>
 
-                <li>Student</li>
-                <li>Developer</li>
-                <li>Designer</li>
-                <li>User</li>
-                <li>Entrepreneur</li>
-                <li>Investor</li>
-                <li>Researcher</li>
-                <li>Policymaker</li>
+                    <h2 id="research-title">
+                        Look beyond the product.
+                    </h2>
 
-            </ul>
+                    <p>
+                        Stories reveal the relationships and interactions
+                        that are often hidden behind successful innovations.
+                    </p>
 
-            <p>
-                Your ideas, conversations, decisions, and actions can become
-                part of how innovation develops.
-            </p>
+                </div>
+
+                <div class="why-grid">
+
+                    <article class="why-card">
+                        <h3>Ideas change</h3>
+                        <p>
+                            Conversations and feedback can transform
+                            what people originally imagined.
+                        </p>
+                    </article>
+
+                    <article class="why-card">
+                        <h3>Contexts change</h3>
+                        <p>
+                            Real users reveal problems, opportunities,
+                            and possibilities.
+                        </p>
+                    </article>
+
+                    <article class="why-card">
+                        <h3>Systems change</h3>
+                        <p>
+                            New technologies, people, and challenges
+                            can reshape entire organizations.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
 
         </section>
 
 
-        <!-- Call to Action -->
-        <section id="research">
+        <!-- =====================================================
+             YOU ARE PART OF THE STORY
+        ====================================================== -->
 
-            <h2>What Story Are You Trying to Build?</h2>
+        <section class="section audience"
+                 aria-labelledby="audience-title">
 
-            <p>
-                Every innovation starts somewhere.
-            </p>
+            <div class="container audience-grid">
 
-            <p>
-                It may begin with a problem, a question, an experience,
-                or an idea that something could be different.
-            </p>
+                <div>
 
-            <p>
+                    <p class="eyebrow">Your role</p>
 
-                <a href="https://www.upou.edu.ph/feature/beyond-stories-how-narratives-shape-innovation-in-philippine-tech-startups/">
-                    Learn more
-                </a>
+                    <h2 id="audience-title">
+                        You may already be part of the story.
+                    </h2>
 
-            </p>
+                    <p>
+                        You do not have to be a startup founder to
+                        influence innovation.
+                    </p>
+
+                    <ul class="audience-list">
+
+                        <li>Student</li>
+                        <li>Developer</li>
+                        <li>Designer</li>
+                        <li>User</li>
+                        <li>Entrepreneur</li>
+                        <li>Investor</li>
+                        <li>Researcher</li>
+                        <li>Policymaker</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="cta">
+
+                    <h2>
+                        What story are you trying to build?
+                    </h2>
+
+                    <p>
+                        Every innovation starts somewhere—with a problem,
+                        a question, an experience, or an idea that
+                        something could be different.
+                    </p>
+
+                    <a
+                        class="button button-primary"
+                        href="https://www.upou.edu.ph/feature/beyond-stories-how-narratives-shape-innovation-in-philippine-tech-startups/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Deep dive
+                    </a>
+
+                </div>
+
+            </div>
 
         </section>
 
     </main>
 
 
-    <!-- Footer -->
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
     <footer>
 
-        <p>
-            Innovation Has a Story
-        </p>
+        <div class="container footer-grid">
 
-        <p>
-            Let this be the first chapter in your success story. Take the next
-            step by scheduling a complimentary consultation with our team today.
-        </p>
+            <p>
+                <strong>Innovation Has a Story</strong>
+            </p>
 
-        <p>
+            <p>
+                A closer look at the people, ideas, and forces behind innovation.
+            </p>
 
-            <a href="https://startablehub.com/">
-                Startable Innovation Hub
-            </a>
+            <p>
+                <a
+                    href="https://startablehub.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Startable Innovation Hub
+                </a>
+            </p>
 
-        </p>
+        </div>
 
     </footer>
 
-
 </body>
-
 </html>
