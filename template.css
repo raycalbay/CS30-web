@@ -1,0 +1,189 @@
+/* ==========================================================================
+   1. Universal Reset & Box Sizing
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: /* Set to 0 to remove default browser margin */;
+    padding: /* Set to 0 to remove default browser padding */;
+}
+
+/* ==========================================================================
+   2. Global Typography & Base Colors
+   ========================================================================== */
+body {
+    font-family: /* e.g., system-ui, sans-serif, or another font stack */;
+    line-height: /* e.g., 1.5 to 1.7 for readability */;
+    color: /* Choose a dark hex color for body text, e.g., #1e293b */;
+    background-color: /* Choose a light background color, e.g., #f8fafc */;
+    padding: /* Page outer padding, e.g., 1.5rem */;
+}
+
+/* ==========================================================================
+   3. Container & Layout Width Control
+   ========================================================================== */
+main,
+header,
+footer,
+.container {
+    max-width: /* Set max layout width, e.g., 800px */;
+    margin: /* Center horizontally using margin auto, e.g., 0 auto */;
+    width: /* Set full container width: 100% */;
+}
+
+/* ==========================================================================
+   4. Heading Hierarchy & Text Spacing
+   ========================================================================== */
+h1, h2, h3 {
+    color: /* Primary brand/heading color, e.g., #0f172a */;
+    font-weight: /* Heading weight, e.g., 600 or 700 */;
+    line-height: /* Heading line height, e.g., 1.25 */;
+}
+
+h1 {
+    font-size: /* Size for main title, e.g., 2rem */;
+    margin-bottom: /* Space below h1, e.g., 1rem */;
+}
+
+h2 {
+    font-size: /* Size for section titles, e.g., 1.5rem */;
+    margin-top: /* Space above h2, e.g., 1.5rem */;
+    margin-bottom: /* Space below h2, e.g., 0.75rem */;
+}
+
+h3 {
+    font-size: /* Size for subheadings, e.g., 1.2rem */;
+    margin-top: /* Space above h3, e.g., 1.25rem */;
+    margin-bottom: /* Space below h3, e.g., 0.5rem */;
+}
+
+p {
+    margin-bottom: /* Breathing room below paragraphs, e.g., 1.25rem */;
+}
+
+/* ==========================================================================
+   5. Modern Layout Basics (Flexbox Navigation)
+   ========================================================================== */
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: /* Space between menu items, e.g., 1rem */;
+    list-style: /* Remove bullet points: none */;
+    margin: /* Vertical spacing around nav, e.g., 1rem 0 */;
+    padding-left: /* Reset padding: 0 */;
+}
+
+/* ==========================================================================
+   6. General Lists & Bullet Styling
+   ========================================================================== */
+ul, ol {
+    margin-left: /* Indent list from the left, e.g., 1.75rem */;
+    margin-bottom: /* Space below lists, e.g., 1.25rem */;
+    padding-left: /* Optional inner padding, e.g., 0.5rem */;
+}
+
+li {
+    margin-bottom: /* Spacing between list items, e.g., 0.4rem */;
+    line-height: /* Line height for item text, e.g., 1.6 */;
+    color: /* Optional softer text color, e.g., #334155 */;
+}
+
+ul li::marker {
+    color: /* Accent color for unordered bullets, e.g., #0284c7 */;
+}
+
+ol li::marker {
+    color: /* Accent color for numbered list markers, e.g., #0284c7 */;
+    font-weight: /* e.g., 600 */;
+}
+
+li > ul,
+li > ol {
+    margin-top: /* Nested list top spacing, e.g., 0.4rem */;
+    margin-bottom: /* Nested list bottom spacing, e.g., 0.4rem */;
+    margin-left: /* Nested list indent, e.g., 1.25rem */;
+}
+
+/* ==========================================================================
+   7. Responsive Media Rules
+   ========================================================================== */
+img {
+    max-width: /* Prevent overflow: 100% */;
+    height: /* Keep proportional aspect ratio: auto */;
+    display: block;
+    border-radius: /* Rounded image corners, e.g., 6px */;
+}
+
+/* ==========================================================================
+   8. Link & Interactive States
+   ========================================================================== */
+a {
+    color: /* Link color, e.g., #0284c7 */;
+    text-decoration: /* Remove default underline: none */;
+    transition: color 0.2s ease;
+}
+
+a:hover,
+a:focus {
+    color: /* Darker hover color, e.g., #0369a1 */;
+    text-decoration: /* e.g., underline */;
+}
+
+/* Call-to-action button styling */
+.btn,
+section a.button {
+    display: inline-block;
+    background-color: /* Button background color, e.g., #0284c7 */;
+    color: /* Button text color, e.g., #ffffff */;
+    padding: /* Vertical & horizontal padding, e.g., 0.6rem 1.2rem */;
+    border-radius: /* Rounded button corners, e.g., 6px */;
+    text-decoration: none;
+    font-weight: /* e.g., 500 */;
+}
+
+.btn:hover,
+section a.button:hover {
+    background-color: /* Darker hover background, e.g., #0369a1 */;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   9. Box Model Spacing on Components
+   ========================================================================== */
+article,
+figure,
+blockquote {
+    background-color: /* Card background color, e.g., #ffffff */;
+    border: /* Subtle outline border, e.g., 1px solid #e2e8f0 */;
+    border-radius: /* Card corner radius, e.g., 8px */;
+    padding: /* Inner card padding, e.g., 1.25rem */;
+    margin-bottom: /* Spacing below cards, e.g., 1.5rem */;
+}
+
+blockquote {
+    border-left: /* Left accent stripe, e.g., 4px solid #0284c7 */;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: /* Space below table, e.g., 1.5rem */;
+    background-color: /* e.g., #ffffff */;
+    border-radius: /* e.g., 8px */;
+    overflow: hidden;
+    border: /* Outer border, e.g., 1px solid #e2e8f0 */;
+}
+
+th, td {
+    padding: /* Cell inner padding, e.g., 0.75rem 1rem */;
+    text-align: left;
+    border-bottom: /* Cell divider line, e.g., 1px solid #e2e8f0 */;
+}
+
+th {
+    background-color: /* Table header row color, e.g., #f1f5f9 */;
+    font-weight: /* e.g., 600 */;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
