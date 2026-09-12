@@ -1072,6 +1072,523 @@
 
         </section>
 
+        <!-- =========================================================
+     INTERACTIVE NARRATIVE SIMULATOR
+========================================================== -->
+
+<style>
+    /* Scoped styling matching site tokens */
+    .simulator-section {
+        background: #fbfcfe;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+    }
+
+    .simulator-layout {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: clamp(2rem, 4vw, 3.5rem);
+        align-items: start;
+    }
+
+    .sim-form-card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        box-shadow: 0 10px 30px rgba(23, 32, 51, 0.04);
+    }
+
+    .sim-group {
+        margin-bottom: 1.6rem;
+    }
+
+    .sim-label {
+        display: block;
+        font-weight: 750;
+        font-size: 0.95rem;
+        color: var(--ink);
+        margin-bottom: 0.5rem;
+    }
+
+    .sim-select {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+        font-family: inherit;
+        color: var(--ink);
+        background-color: var(--surface);
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235f6b7a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        cursor: pointer;
+    }
+
+    .sim-select:focus {
+        border-color: var(--accent-dark);
+        outline: none;
+    }
+
+    /* Radio pill buttons */
+    .pill-group {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
+    }
+
+    .pill-option {
+        position: relative;
+    }
+
+    .pill-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        margin: 0;
+    }
+
+    .pill-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 0.5rem;
+        text-align: center;
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        transition: all 160ms ease;
+    }
+
+    .pill-title {
+        font-weight: 750;
+        font-size: 0.88rem;
+        color: var(--ink);
+    }
+
+    .pill-sub {
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-top: 2px;
+    }
+
+    .pill-option input[type="radio"]:checked + .pill-content {
+        background: #fff8e9;
+        border-color: var(--accent-dark);
+        box-shadow: 0 0 0 1px var(--accent-dark);
+    }
+
+    .sim-btn {
+        width: 100%;
+        margin-top: 0.5rem;
+        cursor: pointer;
+    }
+
+    /* Dynamic Output Stage */
+    .sim-output-card {
+        background: var(--ink);
+        color: var(--white);
+        border-radius: var(--radius);
+        padding: clamp(1.75rem, 3.5vw, 2.5rem);
+        position: sticky;
+        top: 100px;
+    }
+
+    .sim-output-eyebrow {
+        color: var(--accent);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+    }
+
+    .sim-narrative-box {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        padding: 1.25rem;
+        margin: 1.25rem 0;
+    }
+
+    .sim-stage-step {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .sim-stage-step:last-child {
+        margin-bottom: 0;
+    }
+
+    .sim-step-icon {
+        flex-shrink: 0;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #241b08;
+        font-weight: 800;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sim-step-text h4 {
+        margin: 0 0 0.2rem;
+        font-size: 0.95rem;
+        color: var(--white);
+    }
+
+    .sim-step-text p {
+        margin: 0;
+        font-size: 0.86rem;
+        color: #c9d2de;
+        line-height: 1.45;
+    }
+
+    /* Metrics meters */
+    .metrics-container {
+        margin-top: 1.25rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .metric-row {
+        margin-bottom: 0.75rem;
+    }
+
+    .metric-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        margin-bottom: 0.35rem;
+        color: #dce2eb;
+    }
+
+    .metric-track {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    .metric-bar {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 999px;
+        transition: width 400ms ease;
+    }
+
+    .sim-validation-note {
+        color: #ff7675;
+        font-size: 0.82rem;
+        margin-top: 0.5rem;
+        display: none;
+    }
+
+    @media (max-width: 850px) {
+        .simulator-layout {
+            grid-template-columns: 1fr;
+        }
+        .sim-output-card {
+            position: static;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .pill-group {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="section simulator-section" id="simulator" aria-labelledby="simulator-title">
+    <div class="container">
+        
+        <div class="section-heading">
+            <p class="eyebrow">Interactive Simulation</p>
+            <h2 id="simulator-title">How the Story Unfolds</h2>
+            <p>
+                Every innovation meets friction. Choose an everyday challenge, select who leads 
+                the effort, and introduce a systemic barrier to see how the story evolves.
+            </p>
+        </div>
+
+        <div class="simulator-layout">
+            
+            <!-- Controls Form -->
+            <form class="sim-form-card" id="narrative-form" onsubmit="event.preventDefault();">
+                
+                <!-- Input 1: The Initial Problem -->
+                <div class="sim-group">
+                    <label class="sim-label" for="sim-problem">1. The Everyday Problem</label>
+                    <select class="sim-select" id="sim-problem" required>
+                        <option value="logistics">Cash-Heavy Agri-Logistics in Peri-Urban Areas</option>
+                        <option value="health">Fragmented Healthcare Access in Remote Barangays</option>
+                        <option value="sme">Collateral-Free Micro-Lending for Sari-Sari Stores</option>
+                    </select>
+                </div>
+
+                <!-- Input 2: Lead Archetype -->
+                <div class="sim-group">
+                    <span class="sim-label">2. Who Leads the Story?</span>
+                    <div class="pill-group" role="radiogroup" aria-label="Lead Archetype">
+                        <label class="pill-option">
+                            <input type="radio" name="sim-archetype" value="visionary" checked>
+                            <div class="pill-content">
+                                <span class="pill-title">The Visionary</span>
+                                <span class="pill-sub">Idea & Mission</span>
+                            </div>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="sim-archetype" value="builder">
+                            <div class="pill-content">
+                                <span class="pill-title">The Builder</span>
+                                <span class="pill-sub">Tech & Systems</span>
+                            </div>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="sim-archetype" value="helper">
+                            <div class="pill-content">
+                                <span class="pill-title">The Helper</span>
+                                <span class="pill-sub">Community & Trust</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Input 3: Systemic Friction -->
+                <div class="sim-group">
+                    <label class="sim-label" for="sim-obstacle">3. The Systemic Obstacle</label>
+                    <select class="sim-select" id="sim-obstacle" required>
+                        <option value="connectivity">System: Unstable Connectivity & Hardware Gaps</option>
+                        <option value="bureaucracy">System: Legacy Regulations & Compliance Costs</option>
+                        <option value="incumbent">Opponent: Distrustful Informal Middlemen</option>
+                    </select>
+                </div>
+
+                <button type="button" class="button button-primary sim-btn" id="sim-run-btn">
+                    Trace the Innovation Story
+                </button>
+                <div class="sim-validation-note" id="sim-error-msg">Please complete all selections.</div>
+            </form>
+
+            <!-- Dynamic Result Card -->
+            <div class="sim-output-card" aria-live="polite">
+                <div class="sim-output-eyebrow">Simulated Trajectory</div>
+                <h3 id="sim-result-title" style="color: var(--white); font-size: 1.45rem; margin-bottom: 0.5rem;">
+                    Grassroots Adaptation Arc
+                </h3>
+                <p style="color: #c9d2de; font-size: 0.92rem; margin: 0;">
+                    Startups do not follow straight lines. Here is how systemic pushback changes the original concept:
+                </p>
+
+                <div class="sim-narrative-box">
+                    <div class="sim-stage-step">
+                        <span class="sim-step-icon">1</span>
+                        <div class="sim-step-text">
+                            <h4>The Premise</h4>
+                            <p id="sim-step-1">Initial digital-first rollout designed to bypass manual checkpoints.</p>
+                        </div>
+                    </div>
+                    <div class="sim-stage-step">
+                        <span class="sim-step-icon">2</span>
+                        <div class="sim-step-text">
+                            <h4>The Collision</h4>
+                            <p id="sim-step-2">Bandwidth drops in transit corridors, breaking cloud-based verification.</p>
+                        </div>
+                    </div>
+                    <div class="sim-stage-step">
+                        <span class="sim-step-icon">3</span>
+                        <div class="sim-step-text">
+                            <h4>The Evolution</h4>
+                            <p id="sim-step-3">Pivoted to hybrid SMS tokens anchored in local Barangay centers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metrics -->
+                <div class="metrics-container">
+                    <div class="metric-row">
+                        <div class="metric-header">
+                            <span>Community Adoption</span>
+                            <span id="metric-comm-val">85%</span>
+                        </div>
+                        <div class="metric-track">
+                            <div class="metric-bar" id="metric-comm-bar" style="width: 85%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-row">
+                        <div class="metric-header">
+                            <span>Regulatory Resilience</span>
+                            <span id="metric-reg-val">55%</span>
+                        </div>
+                        <div class="metric-track">
+                            <div class="metric-bar" id="metric-reg-bar" style="width: 55%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-row">
+                        <div class="metric-header">
+                            <span>Execution Feasibility</span>
+                            <span id="metric-feas-val">70%</span>
+                        </div>
+                        <div class="metric-track">
+                            <div class="metric-bar" id="metric-feas-bar" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script>
+    (function() {
+        // Narrative state matrix
+        const narratives = {
+            logistics: {
+                connectivity: {
+                    title: "The Hybrid Mesh Pivot",
+                    p1: "A sleek automated freight dispatch app was envisioned to eliminate paper logbooks for farm goods.",
+                    p2: "Inter-island ferries and mountain passes regularly drop cellular reception, halting cloud transactions.",
+                    p3: "The team redesigned the core workflow around an offline-first sync engine using local dispatch hubs.",
+                    comm: 75, reg: 65, feas: 85
+                },
+                bureaucracy: {
+                    title: "The Inter-Agency Alliance",
+                    p1: "Direct-to-consumer delivery promised to slash shipping margins for regional farmers.",
+                    p2: "Conflicting provincial travel permits and municipal transport fees created multi-day checkpoint halts.",
+                    p3: "Founders partnered with registered agricultural transport co-operatives to clear compliance under shared manifests.",
+                    comm: 80, reg: 85, feas: 60
+                },
+                incumbent: {
+                    title: "The Middleman Transition",
+                    p1: "A marketplace app intended to replace traditional 'viajeros' and loan-shark aggregators.",
+                    p2: "Growers relied on traditional intermediaries for emergency household loans that the app could not disburse.",
+                    p3: "Rather than displacing local middlemen, the startup onboarded them as certified field logistics agents.",
+                    comm: 90, reg: 70, feas: 75
+                }
+            },
+            health: {
+                connectivity: {
+                    title: "The Community Nurse Mesh",
+                    p1: "Telemedicine consultation rooms were designed to bring city doctors directly to remote barangays.",
+                    p2: "Video calls failed across island clusters due to weather interruptions and satellite jitter.",
+                    p3: "Shifted from live video triage to store-and-forward voice notes managed by trained Barangay Health Workers.",
+                    comm: 95, reg: 60, feas: 80
+                },
+                bureaucracy: {
+                    title: "The Institutional Sandbox",
+                    p1: "A mobile prescription-sharing platform aimed to speed up critical chronic medication refills.",
+                    p2: "Complex medical privacy frameworks and legacy wet-signature mandates delayed clinic accreditation.",
+                    p3: "Entered an official municipal pilot program to co-design auditable digital consent mechanisms.",
+                    comm: 65, reg: 90, feas: 60
+                },
+                incumbent: {
+                    title: "The Trust-Building Accord",
+                    p1: "Algorithmic screening aimed to route emergency cases away from overcrowded provincial hospitals.",
+                    p2: "Patients bypassed the digital system, distrusting automated suggestions over local elders' advice.",
+                    p3: "Recruited village leaders as co-designers, integrating local vernacular terms into all symptom checks.",
+                    comm: 85, reg: 75, feas: 70
+                }
+            },
+            sme: {
+                connectivity: {
+                    title: "The SMS Ledger Protocol",
+                    p1: "A digital wallet app was deployed to give micro-retailers instant digital microloans.",
+                    p2: "Data outages and low-tier smartphone storage prevented store owners from keeping the app updated.",
+                    p3: "Re-architected the underwriting engine to accept USSD and SMS transaction prompts without mobile data.",
+                    comm: 90, reg: 70, feas: 85
+                },
+                bureaucracy: {
+                    title: "The Credit Bureau Bridge",
+                    p1: "Alternative data scoring using utility payments was set up to bypass collateral requirements.",
+                    p2: "Strict licensing rules required traditional banking guarantees the startup could not supply.",
+                    p3: "Partnered with rural banks to act as the institutional lender while the startup retained the data scoring layer.",
+                    comm: 70, reg: 95, feas: 65
+                },
+                incumbent: {
+                    title: "The Micro-Merchant Coalition",
+                    p1: "A credit scoring system aimed to replace predatory informal street lenders ('5-6' operators).",
+                    p2: "Street lenders retaliated by offering more flexible, no-documentation daily cash lines.",
+                    p3: "Embedded friendly micro-incentives into store inventory restocks, turning lenders into registered distributors.",
+                    comm: 85, reg: 70, feas: 75
+                }
+            }
+        };
+
+        const problemSelect = document.getElementById('sim-problem');
+        const obstacleSelect = document.getElementById('sim-obstacle');
+        const runBtn = document.getElementById('sim-run-btn');
+
+        const outTitle = document.getElementById('sim-result-title');
+        const outP1 = document.getElementById('sim-step-1');
+        const outP2 = document.getElementById('sim-step-2');
+        const outP3 = document.getElementById('sim-step-3');
+
+        const barComm = document.getElementById('metric-comm-bar');
+        const barReg = document.getElementById('metric-reg-bar');
+        const barFeas = document.getElementById('metric-feas-bar');
+
+        const valComm = document.getElementById('metric-comm-val');
+        const valReg = document.getElementById('metric-reg-val');
+        const valFeas = document.getElementById('metric-feas-val');
+
+        function updateNarrative() {
+            const prob = problemSelect.value;
+            const obs = obstacleSelect.value;
+            const archetype = document.querySelector('input[name="sim-archetype"]:checked')?.value || 'visionary';
+
+            const data = narratives[prob]?.[obs];
+            if (!data) return;
+
+            // Apply slight modifiers based on who leads
+            let commMod = archetype === 'helper' ? 8 : (archetype === 'builder' ? -4 : 0);
+            let feasMod = archetype === 'builder' ? 10 : (archetype === 'visionary' ? -5 : 0);
+            let regMod = archetype === 'visionary' ? -6 : (archetype === 'helper' ? 6 : 0);
+
+            const finalComm = Math.min(98, Math.max(25, data.comm + commMod));
+            const finalReg = Math.min(98, Math.max(25, data.reg + regMod));
+            const finalFeas = Math.min(98, Math.max(25, data.feas + feasMod));
+
+            // Render text
+            outTitle.textContent = data.title;
+            outP1.textContent = data.p1;
+            outP2.textContent = data.p2;
+            outP3.textContent = data.p3;
+
+            // Render bars
+            barComm.style.width = finalComm + '%';
+            valComm.textContent = finalComm + '%';
+
+            barReg.style.width = finalReg + '%';
+            valReg.textContent = finalReg + '%';
+
+            barFeas.style.width = finalFeas + '%';
+            valFeas.textContent = finalFeas + '%';
+        }
+
+        runBtn.addEventListener('click', updateNarrative);
+        problemSelect.addEventListener('change', updateNarrative);
+        obstacleSelect.addEventListener('change', updateNarrative);
+        document.querySelectorAll('input[name="sim-archetype"]').forEach(r => {
+            r.addEventListener('change', updateNarrative);
+        });
+    })();
+</script>
 
         <!-- =====================================================
              PHILIPPINE CONTEXT
