@@ -1556,7 +1556,7 @@
         const valReg = document.getElementById('metric-reg-val');
         const valFeas = document.getElementById('metric-feas-val');
 
-        function updateNarrative() {
+function updateNarrative(triggerType = 'direct_input') {
             const prob = problemSelect.value;
             const obs = obstacleSelect.value;
             const archetype = document.querySelector('input[name="sim-archetype"]:checked')?.value || 'visionary';
@@ -1588,13 +1588,38 @@
 
             barFeas.style.width = finalFeas + '%';
             valFeas.textContent = finalFeas + '%';
+
+            // --- SEND TO GOOGLE ANALYTICS ---
+            if (typeof gtag === 'function') {
+                gtag('event', 'simulator_interaction', {
+                    trigger_source: triggerType,
+                    story_problem: prob,
+                    story_obstacle: obs,
+                    story_leader: archetype,
+                    sim_title: data.title
+                });
+            }
         }
 
-        runBtn.addEventListener('click', updateNarrative);
-        problemSelect.addEventListener('change', updateNarrative);
-        obstacleSelect.addEventListener('change', updateNarrative);
+        // 1. Button click trigger
+        runBtn.addEventListener('click', function() {
+            updateNarrative('button_click');
+        });
+
+        // 2. Dropdown triggers
+        problemSelect.addEventListener('change', function() {
+            updateNarrative('problem_select');
+        });
+
+        obstacleSelect.addEventListener('change', function() {
+            updateNarrative('obstacle_select');
+        });
+
+        // 3. Archetype pill triggers
         document.querySelectorAll('input[name="sim-archetype"]').forEach(r => {
-            r.addEventListener('change', updateNarrative);
+            r.addEventListener('change', function() {
+                updateNarrative('archetype_select');
+            });
         });
     })();
 </script>
